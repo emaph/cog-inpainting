@@ -273,6 +273,7 @@
   ],
   "CONTROLNET": [
     "animatediff_controlnet.ckpt",
+    "diffusion_pytorch_model_promax.safetensors",
     "control-lora-canny-rank128.safetensors",
     "control-lora-canny-rank256.safetensors",
     "control-lora-depth-rank128.safetensors",

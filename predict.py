@@ -54,8 +54,14 @@ class Predictor(BasePredictor):
     def update_workflow(self, workflow, **kwargs):
         # Below is an example showing how to get the node you need and update the inputs
 
-        # positive_prompt = workflow["6"]["inputs"]
-        # positive_prompt["text"] = kwargs["prompt"]
+        positive_prompt = workflow["6"]["inputs"]
+        positive_prompt["text"] = kwargs["prompt"]
+
+        input_image_url = workflow["11"]["inputs"]
+        input_image_url["image"] = kwargs["image"]
+
+        mask = workflow["72"]["inputs"]
+        mask["image"] = kwargs["mask"]
 
         # negative_prompt = workflow["7"]["inputs"]
         # negative_prompt["text"] = f"nsfw, {kwargs['negative_prompt']}"
@@ -73,8 +79,12 @@ class Predictor(BasePredictor):
             description="Things you do not want to see in your image",
             default="",
         ),
-        image: Path = Input(
-            description="An input image",
+        image: str = Input(
+            description="The image to inpaint",
+            default=None,
+        ),
+        mask: str = Input(
+            description="The image with the masked area to inpaint",
             default=None,
         ),
         output_format: str = optimise_images.predict_output_format(),
@@ -87,10 +97,10 @@ class Predictor(BasePredictor):
         # Make sure to set the seeds in your workflow
         seed = seed_helper.generate(seed)
 
-        image_filename = None
-        if image:
-            image_filename = self.filename_with_extension(image, "image")
-            self.handle_input_file(image, image_filename)
+        # image_filename = None
+        # if image:
+        #     image_filename = self.filename_with_extension(image, "image")
+        #     self.handle_input_file(image, image_filename)
 
         with open(api_json_file, "r") as file:
             workflow = json.loads(file.read())
@@ -99,7 +109,8 @@ class Predictor(BasePredictor):
             workflow,
             prompt=prompt,
             negative_prompt=negative_prompt,
-            image_filename=image_filename,
+            image=image,
+            mask=mask,
             seed=seed,
         )
 

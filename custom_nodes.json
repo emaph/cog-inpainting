@@ -1,5 +1,9 @@
 [
   {
+    "repo": "https://github.com/cubiq/ComfyUI_essentials",
+    "commit": "5f1fc52"
+  },
+  {
     "repo": "https://github.com/kijai/ComfyUI-KJNodes",
     "commit": "adb35ee2336208a8f01dc3a9ea171da57d95ead9"
   }
