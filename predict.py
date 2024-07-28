@@ -58,10 +58,10 @@ class Predictor(BasePredictor):
         positive_prompt["text"] = kwargs["prompt"]
 
         input_image_url = workflow["11"]["inputs"]
-        input_image_url["image"] = kwargs["image"]
+        input_image_url["image"] = kwargs["image_filename"]
 
-        mask = workflow["71"]["inputs"]
-        mask["image"] = kwargs["mask"]
+        mask_node = workflow["71"]["inputs"]
+        mask_node["image"] = kwargs["mask_filename"]
 
         # negative_prompt = workflow["7"]["inputs"]
         # negative_prompt["text"] = f"nsfw, {kwargs['negative_prompt']}"
@@ -79,11 +79,11 @@ class Predictor(BasePredictor):
             description="Things you do not want to see in your image",
             default="",
         ),
-        image: str = Input(
+        image: Path = Input(
             description="The image to inpaint",
             default=None,
         ),
-        mask: str = Input(
+        mask: Path = Input(
             description="The image with the masked area to inpaint",
             default=None,
         ),
@@ -97,10 +97,13 @@ class Predictor(BasePredictor):
         # Make sure to set the seeds in your workflow
         seed = seed_helper.generate(seed)
 
-        # image_filename = None
-        # if image:
-        #     image_filename = self.filename_with_extension(image, "image")
-        #     self.handle_input_file(image, image_filename)
+        image_filename = None
+        image_filename = self.filename_with_extension(image, "image")
+        self.handle_input_file(image, image_filename)
+
+        mask_filename = None
+        mask_filename = self.filename_with_extension(mask, "mask")
+        self.handle_input_file(mask, mask_filename)
 
         with open(api_json_file, "r") as file:
             workflow = json.loads(file.read())
@@ -109,8 +112,8 @@ class Predictor(BasePredictor):
             workflow,
             prompt=prompt,
             negative_prompt=negative_prompt,
-            image=image,
-            mask=mask,
+            image_filename=image_filename,
+            mask_filename=mask_filename,
             seed=seed,
         )
 

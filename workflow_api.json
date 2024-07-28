@@ -82,7 +82,7 @@
   },
   "11": {
     "inputs": {
-      "image": "clipspace/clipspace-mask-71596280.png [input]",
+      "image": "image.png",
       "upload": "image"
     },
     "class_type": "LoadImage",
@@ -241,7 +241,7 @@
   },
   "71": {
     "inputs": {
-      "image": "clipspace-mask-70913901.png",
+      "image": "mask.png",
       "upload": "image"
     },
     "class_type": "LoadImage",
