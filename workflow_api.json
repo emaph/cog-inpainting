@@ -40,7 +40,7 @@
   },
   "6": {
     "inputs": {
-      "text": "a cyberpunk man, nija style",
+      "text": "a dolphin coming out of the ocean, sunset",
       "clip": [
         "4",
         1
@@ -202,43 +202,6 @@
       "title": "ImageCompositeMasked"
     }
   },
-  "63": {
-    "inputs": {
-      "x": 0,
-      "y": 0,
-      "resize_source": false,
-      "destination": [
-        "11",
-        0
-      ],
-      "source": [
-        "8",
-        0
-      ],
-      "mask": [
-        "64",
-        0
-      ]
-    },
-    "class_type": "ImageCompositeMasked",
-    "_meta": {
-      "title": "ImageCompositeMasked"
-    }
-  },
-  "64": {
-    "inputs": {
-      "amount": 6,
-      "device": "auto",
-      "mask": [
-        "71",
-        1
-      ]
-    },
-    "class_type": "MaskBlur+",
-    "_meta": {
-      "title": "🔧 Mask Blur"
-    }
-  },
   "71": {
     "inputs": {
       "image": "mask.png",
@@ -253,7 +216,7 @@
     "inputs": {
       "filename_prefix": "inpainted",
       "images": [
-        "63",
+        "8",
         0
       ]
     },

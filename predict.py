@@ -63,12 +63,14 @@ class Predictor(BasePredictor):
         mask_node = workflow["71"]["inputs"]
         mask_node["image"] = kwargs["mask_filename"]
 
-        # negative_prompt = workflow["7"]["inputs"]
-        # negative_prompt["text"] = f"nsfw, {kwargs['negative_prompt']}"
+        sampler = workflow["3"]["inputs"]
+        sampler["cfg"] = kwargs["cfg"]
+        sampler["steps"] = kwargs["steps"]
+        sampler["seed"] = kwargs["seed"]
 
-        # sampler = workflow["3"]["inputs"]
-        # sampler["seed"] = kwargs["seed"]
-        pass
+
+        negative_prompt = workflow["7"]["inputs"]
+        negative_prompt["text"] = f"nsfw, {kwargs['negative_prompt']}"
 
     def predict(
         self,
@@ -86,6 +88,18 @@ class Predictor(BasePredictor):
         mask: Path = Input(
             description="The image with the masked area to inpaint",
             default=None,
+        ),
+        steps: int = Input(
+            description="Number of inference steps",
+            default=20,
+            ge=1,
+            le=50,
+        ),
+        cfg: float = Input(
+            description="Guidance scale",
+            default=4,
+            ge=0,
+            le=20,
         ),
         output_format: str = optimise_images.predict_output_format(),
         output_quality: int = optimise_images.predict_output_quality(),
@@ -115,6 +129,8 @@ class Predictor(BasePredictor):
             image_filename=image_filename,
             mask_filename=mask_filename,
             seed=seed,
+            steps=steps,
+            cfg=cfg
         )
 
         wf = self.comfyUI.load_workflow(workflow)
