@@ -60,7 +60,7 @@ class Predictor(BasePredictor):
         input_image_url = workflow["11"]["inputs"]
         input_image_url["image"] = kwargs["image"]
 
-        mask = workflow["72"]["inputs"]
+        mask = workflow["71"]["inputs"]
         mask["image"] = kwargs["mask"]
 
         # negative_prompt = workflow["7"]["inputs"]
@@ -121,3 +121,7 @@ class Predictor(BasePredictor):
         return optimise_images.optimise_image_files(
             output_format, output_quality, self.comfyUI.get_files(OUTPUT_DIR)
         )
+
+
+# https://i.postimg.cc/gJGFWdCZ/inpaint-full-real.png inpaint full
+# https://i.postimg.cc/hjVL9Rvp/inpaint-mask-real.png inpaint mask

@@ -1,8 +1,8 @@
 {
   "3": {
     "inputs": {
-      "seed": 729223437052755,
-      "steps": 20,
+      "seed": 729223437052698,
+      "steps": 21,
       "cfg": 4,
       "sampler_name": "dpmpp_2m",
       "scheduler": "karras",
@@ -40,7 +40,7 @@
   },
   "6": {
     "inputs": {
-      "text": "a swimming pool in the Colosseum",
+      "text": "a cyberpunk man, nija style",
       "clip": [
         "4",
         1
@@ -82,7 +82,7 @@
   },
   "11": {
     "inputs": {
-      "image": "https://i.postimg.cc/vmK923qw/coloriginal.jpg",
+      "image": "clipspace/clipspace-mask-71596280.png [input]",
       "upload": "image"
     },
     "class_type": "LoadImage",
@@ -108,7 +108,7 @@
         0
       ],
       "image": [
-        "72",
+        "54",
         0
       ]
     },
@@ -139,10 +139,34 @@
       "title": "SetUnionControlNetType"
     }
   },
+  "48": {
+    "inputs": {
+      "mask": [
+        "50",
+        0
+      ]
+    },
+    "class_type": "MaskToImage",
+    "_meta": {
+      "title": "Convert Mask to Image"
+    }
+  },
+  "50": {
+    "inputs": {
+      "mask": [
+        "71",
+        1
+      ]
+    },
+    "class_type": "InvertMask",
+    "_meta": {
+      "title": "InvertMask"
+    }
+  },
   "51": {
     "inputs": {
       "pixels": [
-        "72",
+        "54",
         0
       ],
       "vae": [
@@ -153,6 +177,29 @@
     "class_type": "VAEEncode",
     "_meta": {
       "title": "VAE Encode"
+    }
+  },
+  "54": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": false,
+      "destination": [
+        "11",
+        0
+      ],
+      "source": [
+        "48",
+        0
+      ],
+      "mask": [
+        "71",
+        1
+      ]
+    },
+    "class_type": "ImageCompositeMasked",
+    "_meta": {
+      "title": "ImageCompositeMasked"
     }
   },
   "63": {
@@ -183,8 +230,8 @@
       "amount": 6,
       "device": "auto",
       "mask": [
-        "88",
-        6
+        "71",
+        1
       ]
     },
     "class_type": "MaskBlur+",
@@ -192,7 +239,17 @@
       "title": "🔧 Mask Blur"
     }
   },
-  "70": {
+  "71": {
+    "inputs": {
+      "image": "clipspace-mask-70913901.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image Mask"
+    }
+  },
+  "74": {
     "inputs": {
       "filename_prefix": "inpainted",
       "images": [
@@ -203,31 +260,6 @@
     "class_type": "SaveImage",
     "_meta": {
       "title": "Save Image"
-    }
-  },
-  "72": {
-    "inputs": {
-      "image": "https://i.postimg.cc/brkBwGDd/colomask.png",
-      "upload": "image"
-    },
-    "class_type": "LoadImage",
-    "_meta": {
-      "title": "Load Image Mask"
-    }
-  },
-  "88": {
-    "inputs": {
-      "threshold_r": 0,
-      "threshold_g": 0,
-      "threshold_b": 0,
-      "image": [
-        "72",
-        0
-      ]
-    },
-    "class_type": "MaskFromRGBCMYBW+",
-    "_meta": {
-      "title": "🔧 Mask From RGB/CMY/BW"
     }
   }
 }
